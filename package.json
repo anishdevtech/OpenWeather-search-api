@@ -4,7 +4,7 @@
   "description": "Simple Express REST API for city information",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node main.js"
   },
   "dependencies": {
     "express": "^4.17.1"
