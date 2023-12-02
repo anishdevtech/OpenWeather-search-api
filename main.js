@@ -7,7 +7,9 @@ const PORT = 3000;
 // Read city data from the JSON file
 const cityDataPath = path.join(__dirname, 'city.list.min.json');
 const cityData = JSON.parse(fs.readFileSync(cityDataPath, 'utf8'));
-
+app.get("/", (req, res) => {
+  res.send("Express on Vercel");
+});
 // API endpoint to get city information by name
 app.get('/city/:cityName', (req, res) => {
   const cityName = req.params.cityName.toLowerCase();
