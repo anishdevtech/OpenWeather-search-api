@@ -4,13 +4,14 @@ const path = require('path');
 const axios = require('axios');
 const app = express();
 const PORT = 3000;
-require('dotenv').config()
+require('dotenv').config();
+
 // Read city data from the JSON file
 const cityDataPath = path.join(__dirname, 'city.list.min.json');
 const cityData = JSON.parse(fs.readFileSync(cityDataPath, 'utf8'));
 
 // OpenWeatherMap API key (replace with your own key)
-const apiKey = process.env.api
+const apiKey = process.env.api;
 
 // API endpoint to get city information by name
 app.get('/city/:cityName', (req, res) => {
@@ -24,12 +25,7 @@ app.get('/city/:cityName', (req, res) => {
     res.status(404).json({ error: 'City not found' });
   }
 });
-app.get("/weather",async(req,res)=>{
-  const {lat,lon} = req;
-  const response= axios.get(`http://api.openweathermap.org/data/2.5/weather/?lat=${lat}&lon=${lon}&exclude=minutely&appid=${apiKey}`)
-  res.json(response);
 
-})
 // API endpoint to get city information by coordinates
 app.get('/getCityId', async (req, res) => {
   const { lon, lat } = req.query;
@@ -53,6 +49,18 @@ app.get('/getCityId', async (req, res) => {
     } else {
       res.status(404).json({ error: 'City not found in OpenWeatherMap data' });
     }
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// API endpoint to get weather information by coordinates
+app.get('/weather', async (req, res) => {
+  const { lat, lon } = req.query;
+
+  try {
+    const response = await axios.get(`http://api.openweathermap.org/data/2.5/weather/?lat=${lat}&lon=${lon}&exclude=minutely&appid=${apiKey}`);
+    res.json(response.data);
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
   }
