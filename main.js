@@ -24,7 +24,12 @@ app.get('/city/:cityName', (req, res) => {
     res.status(404).json({ error: 'City not found' });
   }
 });
+app.get("/weather",async(req,res)=>{
+  const {lat,lon} = req;
+  const response= axios.get(`http://api.openweathermap.org/data/2.5/weather/?lat=${lat}&lon=${lon}&exclude=minutely&appid=${apiKey}`)
+  res.json(response);
 
+})
 // API endpoint to get city information by coordinates
 app.get('/getCityId', async (req, res) => {
   const { lon, lat } = req.query;
