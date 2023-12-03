@@ -12,7 +12,9 @@ const cityData = JSON.parse(fs.readFileSync(cityDataPath, 'utf8'));
 
 // OpenWeatherMap API key (replace with your own key)
 const apiKey = process.env.api;
-
+app.get("/",(req,res)=>{
+res.send("Working fine" + process.env.api)
+})
 // API endpoint to get city information by name
 app.get('/city/:cityName', (req, res) => {
   const cityName = req.params.cityName.toLowerCase();
