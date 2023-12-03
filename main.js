@@ -4,7 +4,7 @@ const path = require('path');
 const axios = require('axios');
 const app = express();
 const PORT = 3000;
-
+require('dotenv').config()
 // Read city data from the JSON file
 const cityDataPath = path.join(__dirname, 'city.list.min.json');
 const cityData = JSON.parse(fs.readFileSync(cityDataPath, 'utf8'));
